@@ -10,7 +10,7 @@ abstract contract ERC721MerkleDrop is ERC721 {
         string memory _name,
         string memory _symbol,
         bytes32 _root
-    ) ERC721(_name, _symbol) {
+    ) {
         name = _name;
         symbol = _symbol;
         root = _root;
