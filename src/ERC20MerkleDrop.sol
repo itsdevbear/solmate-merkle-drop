@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 pragma solidity >=0.8.0;
 
-import {ERC721} from "solmate/tokens/ERC721.sol";
+import {ERC20} from "solmate/tokens/ERC20.sol";
 
-/// @notice Modern and gas efficient ERC721 + EIP-2612 implementation w/Merkle Tree Integration
+/// @notice Modern and gas efficient ERC20 + EIP-2612 implementation w/Merkle Tree Integration
 /// @author Dev Bear (https://github.com/itsdevbear)
 /// @dev Use https://github.com/miguelmota/merkletreejs to generate proofs
 
-abstract contract ERC721MerkleDrop is ERC721 {
+abstract contract ERC20MerkleDrop is ERC20 {
     bytes32 public immutable root;
 
     /*///////////////////////////////////////////////////////////////
@@ -17,8 +17,9 @@ abstract contract ERC721MerkleDrop is ERC721 {
     constructor(
         string memory _name,
         string memory _symbol,
+        uint8 _decimals,
         bytes32 _root
-    ) ERC721(_name, _symbol) {
+    ) ERC20(_name, _symbol, _decimals) {
         root = _root;
     }
 
@@ -28,11 +29,11 @@ abstract contract ERC721MerkleDrop is ERC721 {
 
     function redeem(
         address account,
-        uint256 tokenId,
+        uint256 amount,
         bytes32[] calldata proof
     ) external {
         bytes32 proofElement;
-        bytes32 computedHash = keccak256(abi.encodePacked(tokenId, account));
+        bytes32 computedHash = keccak256(abi.encodePacked(amount, account));
         uint256 proofLength = proof.length;
         for (uint256 i = 0; i < proofLength; i += 1) {
             proofElement = proof[i];
@@ -48,6 +49,6 @@ abstract contract ERC721MerkleDrop is ERC721 {
             }
         }
         require(computedHash == root, "ERC721MerkleDrop: Invalid proof");
-        _safeMint(account, tokenId);
+        _mint(account, amount);
     }
 }
