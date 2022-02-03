@@ -48,6 +48,6 @@ abstract contract ERC721MerkleDrop is ERC721 {
             }
         }
         require(computedHash == root, "ERC721MerkleDrop: Invalid proof");
-        _safeMint(account, tokenId);
+        _mint(account, tokenId);
     }
 }
