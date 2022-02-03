@@ -1,6 +1,6 @@
-# Forge Template
+# ERC721MerkleDrop
 
-A template for quickly getting started with forge
+A gas efficient ERC721 w/Merkle Tree Redemption Method
 
 ## Getting Started
 
