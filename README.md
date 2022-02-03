@@ -2,17 +2,9 @@
 
 A gas efficient ERC721 w/Merkle Tree Redemption Method
 
-## Getting Started
+## Generating Proofs
 
-```
-mkdir my-project
-cd my-project
-forge init --template https://github.com/FrankieIsLost/forge-template
-git submodule update --init --recursive  ## initialize submodule dependencies
-npm install ## install development dependencies
-forge build
-forge test
-```
+https://github.com/miguelmota/merkletreejs-solidity
 
 ## Features
 

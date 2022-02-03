@@ -23,7 +23,8 @@ abstract contract ERC721MerkleDrop is ERC721 {
     ) external {
         bytes32 proofElement;
         bytes32 computedHash = keccak256(abi.encodePacked(tokenId, account));
-        for (uint256 i = 0; i < proof.length; i++) {
+        uint256 proofLength = proof.length;
+        for (uint256 i = 0; i < proofLength; i += 1) {
             proofElement = proof[i];
 
             if (computedHash <= proofElement) {
