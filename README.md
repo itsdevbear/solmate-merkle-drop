@@ -1,6 +1,8 @@
 # ERC721MerkleDrop
 
-A gas efficient ERC721 w/Merkle Tree Redemption Method
+A gas efficient ERC721 w/Merkle Tree Redemption Method.
+
+***DISCLAIMER*** I have not tested this or done anything I just wrote it in like 30 seconds, if someone wants to submit a PR for tests that'd be hype.
 
 ## Generating Proofs
 
