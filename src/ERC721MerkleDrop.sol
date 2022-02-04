@@ -34,17 +34,20 @@ abstract contract ERC721MerkleDrop is ERC721 {
         bytes32 proofElement;
         bytes32 computedHash = keccak256(abi.encodePacked(tokenId, account));
         uint256 proofLength = proof.length;
-        for (uint256 i = 0; i < proofLength; i += 1) {
-            proofElement = proof[i];
-
-            if (computedHash <= proofElement) {
-                computedHash = keccak256(
-                    abi.encodePacked(computedHash, proofElement)
-                );
-            } else {
-                computedHash = keccak256(
-                    abi.encodePacked(proofElement, computedHash)
-                );
+        unchecked {
+            for (uint256 i = 0; i < proofLength; i += 1) {
+                proofElement = proof[i];
+                assembly {
+                    let a := 0x20
+                    let b := 0x00
+                    if lt(proofElement, computedHash) {
+                        a := 0x00
+                        b := 0x20
+                    }
+                    mstore(a, computedHash)
+                    mstore(b, proofElement)
+                    computedHash := keccak256(0x00, 0x40)
+                }
             }
         }
         require(computedHash == root, "ERC721MerkleDrop: Invalid proof");
